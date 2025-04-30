@@ -34,6 +34,7 @@ def extrair_coluna_de_todas_abas(arquivo_excel, coluna_alvo='num_palavras', tota
                 # Criar um DataFrame temporário com a coluna desejada
                 temp_df = pd.DataFrame({aba: df_aba[coluna_alvo]})
                 dfs.append(temp_df)
+                
             else:
                 print(f"Aviso: A aba '{aba}' não possui coluna '{coluna_alvo}'.")
                 # Criar coluna com valores NA
@@ -58,6 +59,7 @@ def extrair_coluna_de_todas_abas(arquivo_excel, coluna_alvo='num_palavras', tota
     return df_consolidado
 def criar_estatisticas_globais(df):
     # Estatísticas para todos os valores combinados
+   
     todos_valores = df.values.flatten()  # Combina todos os valores em um único array
     todos_valores = todos_valores[~pd.isna(todos_valores)]  # Remove valores NaN
     
@@ -101,7 +103,7 @@ def criar_estatisticas_P_coluna(df):
 
 # Exemplo de uso:
 if __name__ == "__main__":
-    caminho_arquivo = "C:/Users/Gabriel/Downloads/Artigo_atualizado/dados_por_canal.xlsx"
+    caminho_arquivo = "C:/Users/Gabriel/Desktop/Artigo_atualizado/tabelas/dados_por_canal.xlsx"
     
     try:
         # Chamar a função para processar o arquivo
@@ -126,10 +128,9 @@ if __name__ == "__main__":
         print(estatisticas_df)"""
         
         # Salvar o resultado
-        caminho_saida1 = "C:/Users/Gabriel/Downloads/Artigo_atualizado/palavras_por_canalXX.xlsx"
-       
-        caminho_saida2 = "C:/Users/Gabriel/Downloads/Artigo_atualizado/estatisticas_palavras_por_canal.xlsx"
-        caminho_saida3 = "C:/Users/Gabriel/Downloads/Artigo_atualizado/estatisticas_globais_palavras_por_canal.xlsx"
+        caminho_saida1 = "C:/Users/Gabriel/Desktop/Artigo_atualizado/tabelas/palavras_por_canalAAA.xlsx"
+        ##caminho_saida2 = "C:/Users/Gabriel/Desktop/Artigo_atualizado/tabelas/estatisticas_palavras_por_canal.xlsx"
+        ##caminho_saida3 = "C:/Users/Gabriel/Desktop/Artigo_atualizado/tabelas/estatisticas_globais_palavras_por_canal.xlsx"
         
         resultado.to_excel(caminho_saida1, index=True)
         estatisticas_df.to_excel(caminho_saida2, index=True)
