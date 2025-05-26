@@ -65,7 +65,7 @@ if __name__ == "__main__":
     print(valores_agrupados)
 
     # Filtrar e amostrar os valores entre (355///355*1.2) pode ser feito apenas pela media
-    valores_amostrados = amostrar_valores(valores_agrupados, 355 ,  355*1.2)
+    valores_amostrados = amostrar_valores(valores_agrupados, 364 ,  364*1.2)
     print("\nValores amostrados entre 1000 e 5000:")
     print(valores_amostrados)
 

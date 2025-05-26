@@ -1,1 +1,1 @@
-     
+df_filtrado = df[(df['valores'] >= limite_inferior) & (df['valores'] <= limite_superior)]

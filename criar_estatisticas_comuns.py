@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
         print(estatisticas_df)
 
-        estatisticas_df.to_excel("C:/Users/Gabriel/Desktop/Artigo_atualizado/tabelas/estatisticas_por_coluna.xlsx", index=False)
+        estatisticas_df.to_excel("C:/Users/Gabriel/Desktop/Artigo_atualizado/tabelas/estatisticas_por_canal.xlsx", index=False)
 
     except Exception as e:
         print(f"Erro ao processar o arquivo: {e}") 

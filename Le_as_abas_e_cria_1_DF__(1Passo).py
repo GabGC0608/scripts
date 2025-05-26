@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 def extrair_coluna_de_todas_abas(arquivo_excel, coluna_alvo='num_palavras', total_abas=49):
     """
@@ -57,49 +58,32 @@ def extrair_coluna_de_todas_abas(arquivo_excel, coluna_alvo='num_palavras', tota
     df_consolidado = df_consolidado.apply(pd.to_numeric, errors='coerce')
     
     return df_consolidado
-def criar_estatisticas_globais(df):
-    # Estatísticas para todos os valores combinados
-   
-    todos_valores = df.values.flatten()  # Combina todos os valores em um único array
-    todos_valores = todos_valores[~pd.isna(todos_valores)]  # Remove valores NaN
-    
-    estatisticas_globais = {
-        'Média': todos_valores.mean(),
-        'Mediana': np.median(todos_valores),
-        'Desvio Padrão': todos_valores.std(),
-        'Máximo': todos_valores.max(),
-        'Mínimo': todos_valores.min(),
-        'Contagem': len(todos_valores),
-        'Soma': todos_valores.sum(),
-    }
-    estatisticas_globais_df = pd.DataFrame(estatisticas_globais, index=[0])
-    return estatisticas_globais_df
 
-def criar_estatisticas_P_coluna(df):
+
+#plotar palavras por canal
+def plotar_palavras_por_canal(df):
     """
-    Cria um DataFrame com estatísticas (média, mediana, desvio padrão, máximo e mínimo)
-    para cada coluna de um DataFrame existente.
+    Plota um gráfico de barras para a contagem de palavras por canal.
 
     Parâmetros:
-    df (pd.DataFrame): DataFrame original.
-
-    Retorna:
-    pd.DataFrame: DataFrame com estatísticas como linhas.
+    df (pd.DataFrame): DataFrame com os dados a serem plotados.
     """
-    estatisticas = {
-        'Média': df.mean(),
-        'Mediana': df.median(),
-        'Desvio Padrão': df.std(),
-        'Máximo': df.max(),
-        'Mínimo': df.min(),
-        'contagem': df.count(),
-        'Soma': df.sum(),
+    
+    plt.figure(figsize=(20, 18))
+    for coluna in df.columns:
+        plt.plot(df.index, df[coluna])
 
-    }
+    plt.title('Número de Palavras por Aba')
+    plt.xlabel('Índice (linhas dos dados)')
+    plt.ylabel('Número de Palavras')
+    plt.legend(loc='upper right', fontsize='small', ncol=2)
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+
     
 
-    estatisticas_df = pd.DataFrame(estatisticas)
-    return estatisticas_df.T 
 
 # Exemplo de uso:
 if __name__ == "__main__":
@@ -108,8 +92,10 @@ if __name__ == "__main__":
     try:
         # Chamar a função para processar o arquivo
         resultado = extrair_coluna_de_todas_abas(caminho_arquivo)
-        estatisticas_df = criar_estatisticas_P_coluna(resultado)
-        estatisticas_globais_df = criar_estatisticas_globais(resultado)
+        #estatisticas_df = criar_estatisticas_P_coluna(resultado)
+        #estatisticas_globais_df = criar_estatisticas_globais(resultado)
+        # Plotar o gráfico de palavras por canal
+        plotar_palavras_por_canal(resultado)
         
         # Mostrar informações completas do resultado
         """print(f"\nDataFrame consolidado criado com {len(resultado.columns)} colunas (abas).")
@@ -128,16 +114,8 @@ if __name__ == "__main__":
         print(estatisticas_df)"""
         
         # Salvar o resultado
-        caminho_saida1 = "C:/Users/Gabriel/Desktop/Artigo_atualizado/tabelas/palavras_por_canalAAA.xlsx"
-        ##caminho_saida2 = "C:/Users/Gabriel/Desktop/Artigo_atualizado/tabelas/estatisticas_palavras_por_canal.xlsx"
-        ##caminho_saida3 = "C:/Users/Gabriel/Desktop/Artigo_atualizado/tabelas/estatisticas_globais_palavras_por_canal.xlsx"
+        ##caminho_saida1 = "C:/Users/Gabriel/Desktop/Artigo_atualizado/tabelas/palavras_por_canalAAA.xlsx"
+      
         
-        resultado.to_excel(caminho_saida1, index=True)
-        estatisticas_df.to_excel(caminho_saida2, index=True)
-        estatisticas_globais_df.to_excel(caminho_saida3, index=True)
-
-        print(f"\nDados salvos com sucesso em: {caminho_saida1}")
-        print(f"Estatísticas salvas com sucesso em: {caminho_saida2}")
-        print(f"Estatísticas globais salvas com sucesso em: {caminho_saida3}")
     except Exception as e:
         print(f"\nErro ao processar o arquivo: {str(e)}")
